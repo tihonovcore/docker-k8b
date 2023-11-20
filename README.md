@@ -8,6 +8,20 @@
 
 `docker run --rm -e POSTGRES_PASSWORD=123 -v pg:/var/lib/postgresql/data --name docker-pg --network micro-db postgres`
 
+```roomsql
+create table users(id SERIAL, name text);
+```
+
 `docker network connect micro-db c9b52e69f5c9`
 c9b52e69f5c9 - имя контейнера internal
+
+`curl --location --request POST 'localhost:8080/user?name=bar'`
+
+`curl --location --request GET  'localhost:8080/user/1'`
+
+API ---micro-api---> INTERNAL ---micro-db---> POSTGRES
+
+`docker rmi api:v1.0`
+
+`docker rmi internal:v1.0`
 
