@@ -47,6 +47,10 @@ c9b52e69f5c9 - имя контейнера internal
 
 `eval $(minikube -p minikube docker-env)` - для использования локальных images
 
+`kubectl create secret generic pg-secret`\
+`kubectl apply -f pg-secret.yaml`\
+`kubectl get secret/pg-secret -o yaml` - получить описание в yaml
+
 `kubectl apply -f pg-deployment.yaml`\
 `kubectl apply -f internal-deployment.yaml`\
 `kubectl apply -f api-deployment.yaml`
