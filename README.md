@@ -38,3 +38,19 @@ c9b52e69f5c9 - имя контейнера internal
 ### Docker compose
 
 `docker compose up`
+
+### Minikube
+
+`minikube start`
+
+`minikube dashboard` - UI куба
+
+`eval $(minikube -p minikube docker-env)` - для использования локальных images
+
+`kubectl apply -f pg-deployment.yaml`\
+`kubectl apply -f internal-deployment.yaml`\
+`kubectl apply -f api-deployment.yaml`
+
+`minikube service api`, где api - имя сервиса из api-deployment, для открытия порта снаружи в minikube 
+
+![](./.images/k8b.jpg)
