@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-deployment
+  labels:
+    app: internal-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: internal-pod
+  template:
+    metadata:
+      labels:
+        app: internal-pod
+    spec:
+      containers:
+        - name: internal
+          image: internal:v1.0
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal        # можно использовать как host
+spec:
+  selector:
+    app: internal-pod
+  ports:
+    - protocol: TCP
+      port: 8080        # service port
+      targetPort: 8080  # container port

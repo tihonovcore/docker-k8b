@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-deployment
+  labels:
+    app: pg-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-pod
+  template:
+    metadata:
+      labels:
+        app: pg-pod
+    spec:
+      containers:
+        - name: pg-db
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "123"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-pg       # можно использовать как host
+spec:
+  selector:
+    app: pg-pod
+  ports:
+    - protocol: TCP
+      port: 5432        # service port
+      targetPort: 5432  # container port
