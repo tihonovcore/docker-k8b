@@ -11,6 +11,9 @@ services:
       - micro-api
   internal:
     build: ./internal
+    environment:
+      PG_USERNAME: postgres
+      PG_PASSWORD: 123
     volumes:
       - m2:/root/.m2
     networks:

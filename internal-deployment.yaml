@@ -19,6 +19,17 @@ spec:
           image: internal:v1.0
           ports:
             - containerPort: 8080
+          env:
+            - name: PG_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: pg-username
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: pg-password
 ---
 apiVersion: v1
 kind: Service

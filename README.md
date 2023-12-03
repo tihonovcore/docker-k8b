@@ -10,7 +10,7 @@
 
 `docker run --rm -p 8080:8080 -v m2:/root/.m2 --network micro-api --name api api:v1.0`
 
-`docker run --rm -v m2:/root/.m2 --network micro-api --name internal internal:v1.0`
+`docker run --rm -v m2:/root/.m2 --network micro-api -e PG_USERNAME=postgres -e PG_PASSWORD=123 --name internal internal:v1.0`
 
 `docker pull postgres`
 
