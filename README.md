@@ -58,3 +58,14 @@ c9b52e69f5c9 - имя контейнера internal
 `minikube service api`, где api - имя сервиса из api-deployment, для открытия порта снаружи в minikube 
 
 ![](./.images/k8b.jpg)
+
+# Resource quotas
+
+`docker build --tag greedy:v1.0 ./greedy`
+
+* `GREEDY_MODE=CPU` - проверяет натуральные числа на простоту
+* `GREEDY_MODE=MEM` - наполняет список случайными строками
+
+`kubectl apply -f greedy-deployment.yaml`
+
+`kubectl top pod greedy-deployment-546b45d5bf-ngv58` - Display Resource (CPU/Memory) usage
