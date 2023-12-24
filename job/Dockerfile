@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+
+FROM amazoncorretto:17.0.2
+
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+
+RUN ./mvnw dependency:resolve
+
+COPY src ./src
+
+RUN ["./mvnw", "package"]
+
+CMD ["java", "-cp", "./target/job-1.0-SNAPSHOT.jar", "core.tikhonov.Job"]
