@@ -3,9 +3,20 @@ kind: Job
 metadata:
   name: hello-job
 spec:
+  ttlSecondsAfterFinished: 100
+  activeDeadlineSeconds: 20
+  completions: 10
+  parallelism: 10
+  completionMode: Indexed
+#  backoffLimitPerIndex: 1
+  backoffLimit: 100
+#  maxFailedIndexes: 2
   template:
     spec:
       containers:
         - name: hello-job
-          image: job:v1.2
-      restartPolicy: Never
+          image: job:v1.0
+          env:
+            - name: SLEEPING_MS
+              value: "5000"
+      restartPolicy: Never # OnFailure - рестартанет контейнер в поде

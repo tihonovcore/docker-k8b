@@ -69,3 +69,22 @@ c9b52e69f5c9 - имя контейнера internal
 `kubectl apply -f greedy-deployment.yaml`
 
 `kubectl top pod greedy-deployment-546b45d5bf-ngv58` - Display Resource (CPU/Memory) usage
+
+# Jobs
+
+`docker build --tag job:v1.0 ./job`
+
+`kubectl apply -f job.yaml`\
+`kubectl delete job hello-job`
+
+`kubectl apply -f cronjob.yaml`\
+`kubectl delete cronjob hello-cron-job`
+
+прибить джобу если работает дольше `activeDeadlineSeconds` секунд\
+удалить данные о джобе спустя `ttlSecondsAfterFinished` секунд после завершения\
+`completions` - число запусков джобы\
+`parallelism` - число одновременно работающих запусков\
+`completionMode` - если `Indexed`, то джобам назначаются индексы, можно достать из JOB_COMPLETION_INDEX\
+`backoffLimit` - максимальное число ретраев суммарно по всем джобам\
+остановить ретраи индекса после `backoffLimitPerIndex` попыток\
+остановить все ретраи после падения `maxFailedIndexes` индексов

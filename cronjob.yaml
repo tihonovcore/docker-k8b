@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-cron-job
+spec:
+  schedule: "* * * * *"         # минуты, часы, дни, месяца, дни недели
+  successfulJobsHistoryLimit: 5 # сколько джоб хранить в истории
+  failedJobsHistoryLimit: 3     # сколько джоб хранить в истории
+  concurrencyPolicy: Allow      # Forbid, Replace
+  jobTemplate:
+    spec:
+      completions: 1
+      template:
+        spec:
+          containers:
+            - name: hello-job
+              image: job:v1.0
+              env:
+                - name: SLEEPING_MS
+                  value: "80000"
+          restartPolicy: Never # OnFailure - рестартанет контейнер в поде
