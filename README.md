@@ -88,3 +88,11 @@ c9b52e69f5c9 - имя контейнера internal
 `backoffLimit` - максимальное число ретраев суммарно по всем джобам\
 остановить ретраи индекса после `backoffLimitPerIndex` попыток\
 остановить все ретраи после падения `maxFailedIndexes` индексов
+
+# Volume
+
+`kubectl apply -f volume.yaml`
+
+`kubectl apply -f pg-claim.yaml`
+
+`kubectl apply -f pg-deployment.yaml`
