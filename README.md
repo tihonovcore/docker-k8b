@@ -100,3 +100,11 @@ c9b52e69f5c9 - имя контейнера internal
 # ConfigMap
 
 Можно добавить через volume как файл и сослаться на него при запуске приложения
+
+# Неймспейсы
+
+`kubectl create namespace api-namespace`
+
+`kubectl create namespace db-namespace`
+
+Везде прописываем metadata.namespace
