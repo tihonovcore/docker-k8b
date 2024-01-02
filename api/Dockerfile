@@ -11,4 +11,4 @@ RUN ./mvnw dependency:resolve
 
 COPY src ./src
 
-CMD ["./mvnw", "mn:run", "-Dmicronaut.environments=prod"]
+CMD ["./mvnw", "mn:run", "-Dmicronaut.config.files=/etc/config/application.properties"]

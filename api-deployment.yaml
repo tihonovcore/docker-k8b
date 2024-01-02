@@ -1,3 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+data:
+  # file-like keys
+  application-props: |
+    micronaut.application.name=api
+    micronaut.server.port=8080
+
+    rest.db-crud.url=http://internal:8080
+
+    endpoints.all.port=8081
+
+    probes.enabled=false
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -42,6 +58,17 @@ spec:
 
             # ожидание терминации при падении liveness пробы
             terminationGracePeriodSeconds: 5
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: api-config
+            items:
+            - key: "application-props"
+              path: "application.properties"
 ---
 apiVersion: v1
 kind: Service

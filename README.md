@@ -86,7 +86,7 @@ c9b52e69f5c9 - имя контейнера internal
 `parallelism` - число одновременно работающих запусков\
 `completionMode` - если `Indexed`, то джобам назначаются индексы, можно достать из JOB_COMPLETION_INDEX\
 `backoffLimit` - максимальное число ретраев суммарно по всем джобам\
-остановить ретраи индекса после `backoffLimitPerIndex` попыток\
+остановить ретраи индекса после `backoffLimitPerIndex` (с v1.29) попыток\
 остановить все ретраи после падения `maxFailedIndexes` индексов
 
 # Volume
@@ -96,3 +96,7 @@ c9b52e69f5c9 - имя контейнера internal
 `kubectl apply -f pg-claim.yaml`
 
 `kubectl apply -f pg-deployment.yaml`
+
+# ConfigMap
+
+Можно добавить через volume как файл и сослаться на него при запуске приложения

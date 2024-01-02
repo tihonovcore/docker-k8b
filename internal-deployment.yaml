@@ -1,3 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internal-config
+data:
+  # file-like keys
+  application-props: |
+    micronaut.application.name=internal
+    micronaut.server.port=8080
+    
+    datasources.pg.url=jdbc:postgresql://docker-pg.db-namespace:5432/postgres
+    datasources.pg.driver-class-name=org.postgresql.Driver
+    datasources.pg.db-type=postgres
+    datasources.pg.dialect=POSTGRES
+    datasources.pg.username=${PG_USERNAME}
+    datasources.pg.password=${PG_PASSWORD}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,7 +33,7 @@ spec:
     spec:
       containers:
         - name: internal
-          image: internal:v1.0
+          image: internal:v1.1
           ports:
             - containerPort: 8080
           env:
@@ -30,6 +47,17 @@ spec:
                 secretKeyRef:
                   name: pg-secret
                   key: pg-password
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: internal-config
+            items:
+              - key: "application-props"
+                path: "application.properties"
 ---
 apiVersion: v1
 kind: Service
