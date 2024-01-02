@@ -1,5 +1,6 @@
 package core.tikhonov.health;
 
+import io.micronaut.context.annotation.Property;
 import io.micronaut.health.HealthStatus;
 import io.micronaut.management.health.indicator.HealthIndicator;
 import io.micronaut.management.health.indicator.HealthResult;
@@ -17,8 +18,15 @@ public class Read implements HealthIndicator {
 
     private static final String NAME = "read-hc";
 
+    @Property(name = "probes.enable", defaultValue = "false")
+    private boolean probesEnabled;
+
     @Override
     public Publisher<HealthResult> getResult() {
+        if (!probesEnabled) {
+            return Mono.just(HealthResult.builder(NAME, HealthStatus.UP).build());
+        }
+
         return Mono.just(HealthResult.builder(NAME, status()).build());
     }
 
